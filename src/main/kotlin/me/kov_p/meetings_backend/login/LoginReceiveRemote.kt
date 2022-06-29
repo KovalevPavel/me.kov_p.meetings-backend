@@ -1,4 +1,4 @@
-package me.kov_p.login
+package me.kov_p.meetings_backend.login
 
 import kotlinx.serialization.Serializable
 

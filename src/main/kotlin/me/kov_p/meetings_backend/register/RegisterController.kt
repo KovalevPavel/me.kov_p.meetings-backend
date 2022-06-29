@@ -1,7 +1,7 @@
-package me.kov_p.register
+package me.kov_p.meetings_backend.register
 
-import me.kov_p.database.users.UserDto
-import me.kov_p.database.users.Users
+import me.kov_p.meetings_backend.database.users.UserDto
+import me.kov_p.meetings_backend.database.users.Users
 
 class RegisterController {
     fun registerNewUser(registerReceiveRemote: RegisterReceiveRemote): Result<String> {

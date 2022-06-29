@@ -1,7 +1,10 @@
-package me.kov_p.database.users
+package me.kov_p.meetings_backend.database.users
 
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 
 object Users : Table("users") {
     private const val COLUMN_LOGIN = "COLUMN_LOGIN"

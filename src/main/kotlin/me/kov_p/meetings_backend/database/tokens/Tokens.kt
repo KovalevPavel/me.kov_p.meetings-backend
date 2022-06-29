@@ -1,4 +1,4 @@
-package me.kov_p.database.tokens
+package me.kov_p.meetings_backend.database.tokens
 
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.insert

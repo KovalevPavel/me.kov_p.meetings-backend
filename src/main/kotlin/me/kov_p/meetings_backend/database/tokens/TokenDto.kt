@@ -1,4 +1,4 @@
-package me.kov_p.database.tokens
+package me.kov_p.meetings_backend.database.tokens
 
 data class TokenDto(
     val rowId: String,

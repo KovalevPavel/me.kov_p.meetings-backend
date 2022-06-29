@@ -1,4 +1,4 @@
-package me.kov_p.database.users
+package me.kov_p.meetings_backend.database.users
 
 class UserDto(
     val login: String,

@@ -9,10 +9,10 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.10"
 }
 
-group = "me.kov_p"
+group = "me.kov_p.meetings_backend"
 version = "0.0.1"
 application {
-    mainClass.set("me.kov_p.ApplicationKt")
+    mainClass.set("me.kov_p.meetings_backend.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -24,14 +24,10 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
-tasks {
-    create("stage").dependsOn("installDist")
-}
-
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
-    implementation("io.ktor:ktor-server-cio-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
@@ -47,4 +43,8 @@ dependencies {
     implementation("io.ktor:ktor-client-java:$ktor_version")
 
     implementation ("io.github.kotlin-telegram-bot.kotlin-telegram-bot:telegram:6.0.7")
+}
+
+tasks.create("stage") {
+    dependsOn("installDist")
 }
