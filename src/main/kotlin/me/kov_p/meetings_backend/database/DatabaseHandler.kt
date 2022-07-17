@@ -15,9 +15,9 @@ object DatabaseHandler {
     private const val MAX_POOL_SIZE = 3
 
     private val appConfig = HoconApplicationConfig(ConfigFactory.load())
-    private val dbUrl = appConfig.property(DB_URL_PATH).getString()
-    private val dbUser = appConfig.property(DB_USER_PATH).getString()
-    private val dbPassword = appConfig.property(DB_PASSWORD_PATH).getString()
+    private val dbUrl = System.getenv("JDBC_DATABASE_URL")
+    private val dbUser = System.getenv("JDBC_DATABASE_USERNAME")
+    private val dbPassword = System.getenv("JDBC_DATABASE_PASSWORD")
 
     fun init() {
         Database.connect(hikari())
