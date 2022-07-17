@@ -3,6 +3,7 @@ package me.kov_p.meetings_backend.plugins
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
+import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
@@ -56,7 +57,7 @@ fun Application.configureBotRouting() {
                 else -> mapMessage(messageInfo = messageInfo)
             }
 
-            val response = call.parseResponse(TelegramUpdate::class)
+            val response = call.receive<TelegramUpdate>()
 
             when {
                 response.messageInfo != null -> response.messageInfo.let(::mapChatMessageUpdate)

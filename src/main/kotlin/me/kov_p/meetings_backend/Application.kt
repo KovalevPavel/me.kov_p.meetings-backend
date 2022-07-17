@@ -9,6 +9,7 @@ import me.kov_p.meetings_backend.di.daoModule
 import me.kov_p.meetings_backend.login.loginRouting
 import me.kov_p.meetings_backend.plugins.configureBotRouting
 import me.kov_p.meetings_backend.plugins.configureRouting
+import me.kov_p.meetings_backend.plugins.configureSerialization
 import me.kov_p.meetings_backend.telegram_bot.BotHandler
 import org.koin.ktor.plugin.Koin
 import org.koin.logger.slf4jLogger
@@ -18,6 +19,7 @@ fun main() {
     DatabaseHandler.init()
 
     embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
+        configureSerialization()
         installDi()
         configureRouting()
         configureBotRouting()
