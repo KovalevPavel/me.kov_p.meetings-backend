@@ -66,8 +66,8 @@ fun Application.configureBotRouting() {
             }
                 .let { update ->
 
-                    delegates.firstOrNull { it.isDelegateValid(update) }
-                        ?.handleUpdate(update)
+//                    delegates.firstOrNull { it.isDelegateValid(update) }
+//                        ?.handleUpdate(update)
                 }
         }
     }

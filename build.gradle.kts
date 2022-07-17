@@ -43,6 +43,10 @@ dependencies {
     implementation("io.ktor:ktor-client-java:$ktor_version")
 
     implementation ("io.github.kotlin-telegram-bot.kotlin-telegram-bot:telegram:6.0.7")
+
+    implementation("org.jetbrains.exposed:exposed-core:0.38.2")
+    implementation("com.zaxxer:HikariCP:5.0.1")
+    implementation ("org.postgresql:postgresql:42.4.0")
 }
 
 tasks.create("stage") {
