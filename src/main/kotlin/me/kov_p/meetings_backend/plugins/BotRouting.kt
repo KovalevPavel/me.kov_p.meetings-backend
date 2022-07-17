@@ -58,7 +58,7 @@ fun Application.configureBotRouting() {
                 else -> mapMessage(messageInfo = messageInfo)
             }
 
-            val response = call.receive<TelegramUpdateResponse>().result.first()
+            val response = call.receive<TelegramUpdate>()
 //            val response = call.parseResponse(TelegramUpdate::class)
 
             when {
