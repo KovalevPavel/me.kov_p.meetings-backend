@@ -20,7 +20,7 @@ fun Application.loginRouting() {
             val receive = call.parseResponse(LoginReceiveRemote::class)
 
             if (userDao.isUserRegistered(receive.userName.orEmpty())) {
-                call.respond(LoginRespondRemote(token = UUID.randomUUID().toString()))
+                call.respond(HttpStatusCode.Created, LoginRespondRemote(token = UUID.randomUUID().toString()))
             } else {
                 call.respond(HttpStatusCode.BadRequest, "User is unregistered")
             }
