@@ -11,6 +11,7 @@ class NewMessageUpdateDelegate : UpdateEventDelegate {
     }
 
     override fun handleUpdate(updateVo: UpdateVo) {
+        println("update: $updateVo")
         if (updateVo !is UpdateVo.NewMessage) return
 //        BotHandler.sendMessage(
 //            message = "new message -> ${updateVo.text} from user ${updateVo.author.userName} with id ${updateVo.author.id}",
