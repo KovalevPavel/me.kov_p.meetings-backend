@@ -24,11 +24,10 @@ class UserDao {
         }
     }
 
-    fun getUserByName(name: String): UserDto {
-        val userModel = Users.select { Users.userName.eq(name) }.single()
-        return UserDto(
-            userName = userModel[Users.userName],
-            chatId = userModel[Users.userChatId]
-        )
+    fun isUserRegistered(userName: String): Boolean {
+        return Users.select {
+            Users.userName.eq(userName)
+        }
+            .singleOrNull() != null
     }
 }

@@ -5,5 +5,7 @@ object ConfigHandler {
     val botUpdateUrl: String
         get() = baseUrl.plus(botUpdateSubPath)
 
+    val loginSubPath: String = System.getenv("loginUrl")
+
     private val baseUrl = System.getenv("appUrl")
 }

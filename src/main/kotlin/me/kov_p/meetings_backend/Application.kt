@@ -6,6 +6,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import me.kov_p.meetings_backend.database.DatabaseHandler
 import me.kov_p.meetings_backend.di.daoModule
+import me.kov_p.meetings_backend.login.loginRouting
 import me.kov_p.meetings_backend.plugins.configureBotRouting
 import me.kov_p.meetings_backend.plugins.configureRouting
 import me.kov_p.meetings_backend.telegram_bot.BotHandler
@@ -20,6 +21,7 @@ fun main() {
         installDi()
         configureRouting()
         configureBotRouting()
+        loginRouting()
     }.start(wait = true)
 }
 

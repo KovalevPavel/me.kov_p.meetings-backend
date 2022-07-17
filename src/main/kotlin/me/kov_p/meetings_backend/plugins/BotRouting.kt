@@ -56,7 +56,7 @@ fun Application.configureBotRouting() {
                 else -> mapMessage(messageInfo = messageInfo)
             }
 
-            val response = call.parseUpdateEntity()
+            val response = call.parseResponse(TelegramUpdate::class)
 
             when {
                 response.messageInfo != null -> response.messageInfo.let(::mapChatMessageUpdate)
