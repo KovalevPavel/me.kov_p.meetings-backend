@@ -16,7 +16,7 @@ class UserDao {
         }
     }
 
-    fun deleteUser(userIdToDelete: Int) {
+    fun deleteUser(userIdToDelete: Long) {
         transaction {
             Users.deleteWhere {
                 Users.userChatId.eq(userIdToDelete)

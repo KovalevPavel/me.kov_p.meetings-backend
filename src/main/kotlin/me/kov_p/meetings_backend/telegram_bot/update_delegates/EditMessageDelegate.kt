@@ -15,7 +15,7 @@ class EditMessageDelegate : UpdateEventDelegate {
             is UpdateVo.EditedMessage -> {
                 BotHandler.sendMessage(
                     message = System.getenv(EDIT_ALERT_CONFIG_KEY),
-                    chatId = ChatId.fromId(updateVo.originalMessage.chatId.toLong()),
+                    chatId = ChatId.fromId(updateVo.originalMessage.chatId),
                     replyToMessage = updateVo.originalMessage.id
                 )
             }

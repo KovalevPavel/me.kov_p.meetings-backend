@@ -7,6 +7,6 @@ internal object Users : Table("users") {
     private const val COLUMN_CHAT_ID = "chat_id"
 
     val userName = Users.varchar(COLUMN_USERNAME, 25)
-    val userChatId = Users.integer(COLUMN_CHAT_ID)
+    val userChatId = Users.long(COLUMN_CHAT_ID)
 }
 

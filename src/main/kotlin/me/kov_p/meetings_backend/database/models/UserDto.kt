@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserDto(
     val userName: String,
-    val chatId: Int,
+    val chatId: Long,
 )
