@@ -4,7 +4,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.post
+import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import java.util.UUID
 import me.kov_p.meetings_backend.ConfigHandler
@@ -14,13 +14,13 @@ import org.koin.java.KoinJavaComponent.inject
 
 fun Application.loginRouting() {
     routing {
-        post(ConfigHandler.loginSubPath) {
+        get(ConfigHandler.loginSubPath) {
             val userDao: UserDao by inject(UserDao::class.java)
 
             val receive = call.parseResponse(LoginReceiveRemote::class)
 
             if (userDao.isUserRegistered(receive.userName.orEmpty())) {
-                call.respond(HttpStatusCode.Created, LoginRespondRemote(token = UUID.randomUUID().toString()))
+                call.respond(HttpStatusCode.Accepted, LoginRespondRemote(token = UUID.randomUUID().toString()))
             } else {
                 call.respond(HttpStatusCode.BadRequest, "User is unregistered")
             }
