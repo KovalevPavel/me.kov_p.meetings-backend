@@ -18,6 +18,7 @@ import me.kov_p.meetings_backend.utils.orZero
 fun Application.configureBotRouting() {
     routing {
         post(ConfigHandler.botUpdateSubPath) {
+            println("received update")
             call.respond(status = HttpStatusCode.Accepted, message = "Success")
 
             val delegates by lazy {
