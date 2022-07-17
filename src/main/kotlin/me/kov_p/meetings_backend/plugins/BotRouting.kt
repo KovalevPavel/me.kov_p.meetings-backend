@@ -7,24 +7,26 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import me.kov_p.meetings_backend.ConfigHandler
-import me.kov_p.meetings_backend.telegram_bot.EditMessageDelegate
-import me.kov_p.meetings_backend.telegram_bot.NewMessageUpdateDelegate
+import me.kov_p.meetings_backend.telegram_bot.update_delegates.EditMessageDelegate
+import me.kov_p.meetings_backend.telegram_bot.update_delegates.NewMessageUpdateDelegate
 import me.kov_p.meetings_backend.telegram_bot.TelegramUpdate
 import me.kov_p.meetings_backend.telegram_bot.UpdateVo
-import me.kov_p.meetings_backend.telegram_bot.parseUpdateEntity
+import me.kov_p.meetings_backend.telegram_bot.update_delegates.DeleteUserDelegate
+import me.kov_p.meetings_backend.telegram_bot.update_delegates.NewUserDelegate
 import me.kov_p.meetings_backend.utils.orFalse
 import me.kov_p.meetings_backend.utils.orZero
 
 fun Application.configureBotRouting() {
     routing {
         post(ConfigHandler.botUpdateSubPath) {
-            println("received update")
             call.respond(status = HttpStatusCode.Accepted, message = "Success")
 
             val delegates by lazy {
                 listOf(
                     NewMessageUpdateDelegate(),
-                    EditMessageDelegate()
+                    EditMessageDelegate(),
+                    NewUserDelegate(),
+                    DeleteUserDelegate()
                 )
             }
 

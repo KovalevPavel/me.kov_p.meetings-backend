@@ -4,7 +4,7 @@ sealed class UpdateVo {
 
     data class NewMessage(
         val id: Long,
-        val chatId: Long,
+        val chatId: Int,
         val text: String,
         val author: NewChatMember,
         val date: Long,
@@ -17,7 +17,7 @@ sealed class UpdateVo {
     ) : UpdateVo()
 
     data class NewChatMember(
-        val id: Long,
+        val id: Int,
         val isBot: Boolean,
         val firstName: String,
         val secondName: String,
@@ -25,7 +25,7 @@ sealed class UpdateVo {
     ) : UpdateVo()
 
     data class DeletedChatMember(
-        val id: Long,
+        val id: Int,
         val isBot: Boolean,
         val userName: String,
     ) : UpdateVo()

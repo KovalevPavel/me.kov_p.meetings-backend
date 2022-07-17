@@ -44,7 +44,7 @@ internal data class TelegramUpdate(
     @Serializable
     data class ChatInfo(
         @SerializedName("id")
-        val chatId: Long?,
+        val chatId: Int?,
         @SerializedName("is_bot")
         val isBot: Boolean?,
         @SerializedName("first_name")

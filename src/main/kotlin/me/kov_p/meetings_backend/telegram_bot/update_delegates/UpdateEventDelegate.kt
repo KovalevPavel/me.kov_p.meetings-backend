@@ -1,4 +1,4 @@
-package me.kov_p.meetings_backend.plugins
+package me.kov_p.meetings_backend.telegram_bot.update_delegates
 
 import me.kov_p.meetings_backend.telegram_bot.UpdateVo
 
