@@ -3,16 +3,15 @@ package me.kov_p.meetings_backend.plugins
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
-import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import me.kov_p.meetings_backend.ConfigHandler
-import me.kov_p.meetings_backend.telegram_bot.update_delegates.EditMessageDelegate
-import me.kov_p.meetings_backend.telegram_bot.update_delegates.NewMessageUpdateDelegate
 import me.kov_p.meetings_backend.telegram_bot.TelegramUpdate
 import me.kov_p.meetings_backend.telegram_bot.UpdateVo
 import me.kov_p.meetings_backend.telegram_bot.update_delegates.DeleteUserDelegate
+import me.kov_p.meetings_backend.telegram_bot.update_delegates.EditMessageDelegate
+import me.kov_p.meetings_backend.telegram_bot.update_delegates.NewMessageUpdateDelegate
 import me.kov_p.meetings_backend.telegram_bot.update_delegates.NewUserDelegate
 import me.kov_p.meetings_backend.utils.orFalse
 import me.kov_p.meetings_backend.utils.orZero
@@ -57,7 +56,7 @@ fun Application.configureBotRouting() {
                 else -> mapMessage(messageInfo = messageInfo)
             }
 
-            val response = call.receive<TelegramUpdate>()
+            val response = call.parseResponse(TelegramUpdate::class)
 
             when {
                 response.messageInfo != null -> response.messageInfo.let(::mapChatMessageUpdate)
