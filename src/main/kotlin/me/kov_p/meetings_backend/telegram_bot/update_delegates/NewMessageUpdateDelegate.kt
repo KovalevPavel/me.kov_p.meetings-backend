@@ -1,12 +1,11 @@
 package me.kov_p.meetings_backend.telegram_bot.update_delegates
 
-import me.kov_p.meetings_backend.database.dao.user.UserDao
-import me.kov_p.meetings_backend.database.models.UserDto
+import com.github.kotlintelegrambot.entities.ChatId
+import io.ktor.util.toLowerCasePreservingASCIIRules
+import me.kov_p.meetings_backend.telegram_bot.BotHandler
 import me.kov_p.meetings_backend.telegram_bot.UpdateVo
-import org.koin.java.KoinJavaComponent.inject
 
 class NewMessageUpdateDelegate : UpdateEventDelegate {
-    private val userDao by inject<UserDao>(UserDao::class.java)
 
     override fun isDelegateValid(updateVo: UpdateVo): Boolean {
         return updateVo is UpdateVo.NewMessage
@@ -15,14 +14,41 @@ class NewMessageUpdateDelegate : UpdateEventDelegate {
     override fun handleUpdate(updateVo: UpdateVo) {
         when (updateVo) {
             is UpdateVo.NewMessage -> {
-                userDao.createUser(
-                    newUser = UserDto(
-                        userName = updateVo.author.userName,
-                        chatId = updateVo.author.id
-                    )
-                )
+                checkForMeetingsRequest(updateVo.text)
+                    ?.let {
+                        BotHandler.sendMessage(
+                            message = it,
+                            chatId = ChatId.fromId(updateVo.chatId),
+                            replyToMessage = updateVo.id
+                        )
+                    }
             }
             else -> return
         }
+    }
+
+    private fun checkForMeetingsRequest(message: String): String? {
+        val formattedMessage = message
+            .toLowerCasePreservingASCIIRules()
+            .filter { it.isLetterOrDigit() }
+
+        val triggers = System.getenv(MEETING_TRIGGERS_KEY).splitToSequence(DELIMITER_CHARACTER)
+
+        return when {
+            triggers.any(formattedMessage::contains) -> {
+                val answers =
+                    System.getenv(MEETING_ANSWERS_KEY).splitToSequence(DELIMITER_CHARACTER)
+                answers.toList().random()
+            }
+            else -> {
+                null
+            }
+        }
+    }
+
+    companion object {
+        private const val MEETING_TRIGGERS_KEY = "we_gonna_meet_triggers"
+        private const val MEETING_ANSWERS_KEY = "we_gonna_meet_answers"
+        private const val DELIMITER_CHARACTER = "%"
     }
 }
