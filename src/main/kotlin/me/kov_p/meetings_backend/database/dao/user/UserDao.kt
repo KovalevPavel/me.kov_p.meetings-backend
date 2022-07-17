@@ -25,9 +25,11 @@ class UserDao {
     }
 
     fun isUserRegistered(userName: String): Boolean {
-        return Users.select {
-            Users.userName.eq(userName)
+        return transaction {
+            Users.select {
+                Users.userName.eq(userName)
+            }
+                .singleOrNull() != null
         }
-            .singleOrNull() != null
     }
 }
