@@ -9,7 +9,6 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import me.kov_p.meetings_backend.ConfigHandler
 import me.kov_p.meetings_backend.telegram_bot.TelegramUpdate
-import me.kov_p.meetings_backend.telegram_bot.TelegramUpdateResponse
 import me.kov_p.meetings_backend.telegram_bot.UpdateVo
 import me.kov_p.meetings_backend.telegram_bot.update_delegates.DeleteUserDelegate
 import me.kov_p.meetings_backend.telegram_bot.update_delegates.EditMessageDelegate
