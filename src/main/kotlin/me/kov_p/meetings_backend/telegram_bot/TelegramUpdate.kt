@@ -4,19 +4,13 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class TelegramUpdateResponse(
-    val ok: Boolean,
-    val result: List<TelegramUpdate>
-)
-
-@Serializable
 internal data class TelegramUpdate(
     @SerializedName("update_id")
-    val updateId: Long?,
+    val updateId: Long? = null,
     @SerializedName("message")
-    val messageInfo: MessageInfo?,
+    val messageInfo: MessageInfo? = null,
     @SerializedName("edited_message")
-    val editedMessage: MessageInfo?,
+    val editedMessage: MessageInfo? = null,
 ) {
 
     @Serializable
