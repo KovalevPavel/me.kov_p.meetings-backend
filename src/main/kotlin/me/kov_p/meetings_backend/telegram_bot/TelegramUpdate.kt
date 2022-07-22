@@ -1,69 +1,70 @@
 package me.kov_p.meetings_backend.telegram_bot
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonNames
 
 @Serializable
-internal data class TelegramUpdate(
-    @SerializedName("update_id")
+internal data class TelegramUpdate @OptIn(ExperimentalSerializationApi::class) constructor(
+    @JsonNames("update_id")
     val updateId: Long?,
-    @SerializedName("message")
+    @JsonNames("message")
     val messageInfo: MessageInfo?,
-    @SerializedName("edited_message")
+    @JsonNames("edited_message")
     val editedMessage: MessageInfo?,
 ) {
 
     @Serializable
-    data class MessageInfo(
-        @SerializedName("message_id")
+    data class MessageInfo @OptIn(ExperimentalSerializationApi::class) constructor(
+        @JsonNames("message_id")
         val messageId: Long?,
-        @SerializedName("from")
+        @JsonNames("from")
         val authorInfo: ChatInfo?,
-        @SerializedName("chat")
+        @JsonNames("chat")
         val chatInfo: ChatInfo?,
-        @SerializedName("date")
+        @JsonNames("date")
         val date: Long?,
-        @SerializedName("left_chat_member")
+        @JsonNames("left_chat_member")
         val leftChatMember: ChatInfo?,
-        @SerializedName("new_chat_member")
+        @JsonNames("new_chat_member")
         val newChatMember: ChatInfo?,
-        @SerializedName("edit_date")
+        @JsonNames("edit_date")
         val editDate: Long?,
-        @SerializedName("sticker")
+        @JsonNames("sticker")
         val stickerInfo: AttachmentInfo?,
-        @SerializedName("photo")
+        @JsonNames("photo")
         val photoInfo: List<AttachmentInfo>?,
-        @SerializedName("text")
+        @JsonNames("text")
         val text: String?,
-        @SerializedName("caption")
+        @JsonNames("caption")
         val caption: String?,
-        @SerializedName("edit_text")
+        @JsonNames("edit_text")
         val editText: String?,
     )
 
     @Serializable
     data class ChatInfo(
-        @SerializedName("id")
+        @JsonNames("id")
         val chatId: Long?,
-        @SerializedName("is_bot")
+        @JsonNames("is_bot")
         val isBot: Boolean?,
-        @SerializedName("first_name")
+        @JsonNames("first_name")
         val firstName: String?,
-        @SerializedName("last_name")
+        @JsonNames("last_name")
         val lastName: String?,
-        @SerializedName("username")
+        @JsonNames("username")
         val userName: String?,
-        @SerializedName("title")
+        @JsonNames("title")
         val title: String?,
-        @SerializedName("type")
+        @JsonNames("type")
         val type: String?
     )
 
     @Serializable
     data class AttachmentInfo(
-        @SerializedName("file_id")
+        @JsonNames("file_id")
         val fileId: String,
-        @SerializedName("file_unique_id")
+        @JsonNames("file_unique_id")
         val fileUniqueId: String
     )
 }

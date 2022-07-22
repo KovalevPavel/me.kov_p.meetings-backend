@@ -16,6 +16,7 @@ fun Application.configureSerialization() {
             prettyPrint = false
             useArrayPolymorphism = false
             ignoreUnknownKeys = true
+            useAlternativeNames = true
         })
     }
 }
