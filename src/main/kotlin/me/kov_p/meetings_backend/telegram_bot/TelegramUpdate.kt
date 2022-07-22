@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class TelegramUpdate(
     @SerializedName("update_id")
-    val updateId: Long? = null,
+    val updateId: Long?,
     @SerializedName("message")
-    val messageInfo: MessageInfo? = null,
+    val messageInfo: MessageInfo?,
     @SerializedName("edited_message")
-    val editedMessage: MessageInfo? = null,
+    val editedMessage: MessageInfo?,
 ) {
 
     @Serializable
