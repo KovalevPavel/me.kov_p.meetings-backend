@@ -20,7 +20,6 @@ fun main() {
     DatabaseHandler.init()
 
     embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
-        install(ContentNegotiation)
         configureSerialization()
         installDi()
         configureRouting()
