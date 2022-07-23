@@ -4,6 +4,7 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import me.kov_p.meetings_backend.database.DatabaseHandler
 import me.kov_p.meetings_backend.di.daoModule
 import me.kov_p.meetings_backend.login.loginRouting
@@ -19,6 +20,7 @@ fun main() {
     DatabaseHandler.init()
 
     embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
+        install(ContentNegotiation)
         configureSerialization()
         installDi()
         configureRouting()
