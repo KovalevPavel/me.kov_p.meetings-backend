@@ -11,13 +11,11 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
     private val loginList = mutableSetOf<UserLoginData>()
 
     override fun requestLoginCode(userLogin: String): Int? {
-        println("handler hash -> ${this.hashCode()}")
         return when (canGenerateCode(userLogin = userLogin)) {
             false -> {
                 null
             }
             else -> {
-                println("list -> $loginList")
                 Random.nextInt(MIN_CODE_VALUE, MAX_CODE_VALUE)
                     .let { loginCode ->
                         loginList.add(
@@ -39,10 +37,8 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
     }
 
     private fun canGenerateCode(userLogin: String): Boolean {
-        println("finding user data...")
         val userData = loginList.firstOrNull { it.userLogin == userLogin } ?: return true
-        println("user data -> $userData\ncurrent time = ${System.currentTimeMillis()}")
-        return userData.createdTime <= System.currentTimeMillis() + NEW_CODE_GENERATE_DELAY_MS
+        return userData.createdTime + NEW_CODE_GENERATE_DELAY_MS <= System.currentTimeMillis()
     }
 
     companion object {
