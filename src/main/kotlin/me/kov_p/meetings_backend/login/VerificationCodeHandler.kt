@@ -42,7 +42,7 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
     }
 
     private fun canGenerateCode(userLogin: String): Boolean =
-        loginList.any { it.userLogin == userLogin }
+        loginList.none { it.userLogin == userLogin }
 
     companion object {
         private const val MIN_CODE_VALUE = 1000
