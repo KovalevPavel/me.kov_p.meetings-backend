@@ -8,7 +8,7 @@ interface VerificationCodeHandler {
 }
 
 class VerificationCodeHandlerImpl : VerificationCodeHandler {
-    private val loginList = mutableSetOf<UserLoginData>()
+    private val loginList = mutableMapOf<String, UserLoginData>()
 
     override fun requestLoginCode(userLogin: String): Int? {
         return when (canGenerateCode(userLogin = userLogin)) {
@@ -18,14 +18,11 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
             else -> {
                 Random.nextInt(MIN_CODE_VALUE, MAX_CODE_VALUE)
                     .let { loginCode ->
-                        loginList.add(
-                            UserLoginData(
-                                userLogin = userLogin,
-                                generatedCode = loginCode,
-                                createdTime = System.currentTimeMillis(),
-                            )
+                        loginList[userLogin] = UserLoginData(
+                            userLogin = userLogin,
+                            generatedCode = loginCode,
+                            createdTime = System.currentTimeMillis(),
                         )
-                        println("list after add -> $loginList")
                         loginCode
                     }
             }
@@ -33,11 +30,11 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
     }
 
     override fun checkLoginCode(data: UserLoginData): Boolean {
-        return loginList.any { it == data }
+        return loginList[data.userLogin] == data
     }
 
     private fun canGenerateCode(userLogin: String): Boolean {
-        val userData = loginList.firstOrNull { it.userLogin == userLogin } ?: return true
+        val userData = loginList[userLogin] ?: return true
         return userData.createdTime + NEW_CODE_GENERATE_DELAY_MS <= System.currentTimeMillis()
     }
 

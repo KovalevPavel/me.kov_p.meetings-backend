@@ -19,20 +19,28 @@ fun Application.loginRouting() {
 
             val userName = call.receive<LoginReceiveRemote>().userName.orEmpty()
 
-            if (userDao.isUserRegistered(userName)) {
-                requestCode(userName)?.let {
+            when (userDao.isUserRegistered(userName)) {
+                false -> {
                     call.respond(
-                        status = HttpStatusCode.Accepted,
-                        message = LoginRespondRemote(code = it)
+                        status = HttpStatusCode.Unauthorized,
+                        message = LoginRespondRemote(errorMessage = "User is unregistered")
                     )
                 }
-                return@post
+                true -> {
+                    requestCode(userName)?.let {
+                        call.respond(
+                            status = HttpStatusCode.Accepted,
+                            message = LoginRespondRemote(code = it)
+                        )
+                    }
+                        ?: kotlin.run {
+                            call.respond(
+                                status = HttpStatusCode.Locked,
+                                message = LoginRespondRemote(errorMessage = "Timeout!")
+                            )
+                        }
+                }
             }
-
-            call.respond(
-                status = HttpStatusCode.Forbidden,
-                message = LoginRespondRemote(errorMessage = "Unable to generate code")
-            )
         }
     }
 }
