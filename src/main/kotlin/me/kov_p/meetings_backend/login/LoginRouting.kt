@@ -19,10 +19,7 @@ fun Application.loginRouting() {
 
             val userName = call.receive<LoginReceiveRemote>().userName.orEmpty()
 
-            val isUserRegistered = userDao.isUserRegistered(userName)
-            println("user $userName is registered -> $isUserRegistered")
-
-            if (isUserRegistered) {
+            if (userDao.isUserRegistered(userName)) {
                 requestCode(userName)?.let {
                     call.respond(
                         status = HttpStatusCode.Accepted,

@@ -13,14 +13,11 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
     private val loginList = mutableSetOf<UserLoginData>()
 
     override fun requestLoginCode(userLogin: String): Int? {
-        println("generating code for $userLogin")
         return when (canGenerateCode(userLogin = userLogin)) {
             false -> {
-                println("Can't generate code")
                 null
             }
             else -> {
-                println("Generating code")
                 Random.nextInt(MIN_CODE_VALUE, MAX_CODE_VALUE)
                     .let { loginCode ->
                         val loginData = UserLoginData(
