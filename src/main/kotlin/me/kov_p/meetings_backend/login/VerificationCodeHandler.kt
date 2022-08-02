@@ -1,7 +1,5 @@
 package me.kov_p.meetings_backend.login
 
-import java.util.Timer
-import kotlin.concurrent.schedule
 import kotlin.random.Random
 
 interface VerificationCodeHandler {
@@ -20,14 +18,12 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
             else -> {
                 Random.nextInt(MIN_CODE_VALUE, MAX_CODE_VALUE)
                     .let { loginCode ->
-                        val loginData = UserLoginData(
+                        UserLoginData(
                             userLogin = userLogin,
-                            generatedCode = loginCode
+                            generatedCode = loginCode,
+                            createdTime = System.currentTimeMillis(),
                         )
-                            .also(loginList::add)
-                        Timer().schedule(delay = 0, period = NEW_CODE_GENERATE_DELAY_MS) {
-                            loginList.remove(loginData)
-                        }
+                            .let(loginList::add)
                         loginCode
                     }
             }
@@ -38,8 +34,10 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
         return loginList.any { it == data }
     }
 
-    private fun canGenerateCode(userLogin: String): Boolean =
-        loginList.none { it.userLogin == userLogin }
+    private fun canGenerateCode(userLogin: String): Boolean {
+        val userData = loginList.firstOrNull { it.userLogin == userLogin } ?: return true
+        return userData.createdTime <= System.currentTimeMillis() + NEW_CODE_GENERATE_DELAY_MS
+    }
 
     companion object {
         private const val MIN_CODE_VALUE = 1000
