@@ -2,6 +2,8 @@ package me.kov_p.meetings_backend.telegram_bot
 
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.entities.ChatId
+import com.github.kotlintelegrambot.entities.Message
+import com.github.kotlintelegrambot.types.TelegramBotResult
 import com.github.kotlintelegrambot.webhook
 import me.kov_p.meetings_backend.ConfigHandler
 
@@ -26,8 +28,8 @@ object BotHandler {
         bot.startWebhook()
     }
 
-    fun sendMessage(message: String, chatId: ChatId, replyToMessage: Long? = null) {
-        bot.sendMessage(
+    fun sendMessage(message: String, chatId: ChatId, replyToMessage: Long? = null): TelegramBotResult<Message> {
+        return bot.sendMessage(
             chatId = chatId,
             text = message,
             replyToMessageId = replyToMessage,

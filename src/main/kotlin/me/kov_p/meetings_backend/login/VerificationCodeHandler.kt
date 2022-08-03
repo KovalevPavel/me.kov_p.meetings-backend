@@ -4,6 +4,7 @@ import kotlin.random.Random
 
 interface VerificationCodeHandler {
     fun requestLoginCode(userLogin: String): Int?
+    fun deleteGeneratedCode(userLogin: String)
     fun checkLoginCode(data: UserLoginData): Boolean
 }
 
@@ -15,7 +16,8 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
             false -> {
                 null
             }
-            else -> {
+
+            true -> {
                 Random.nextInt(MIN_CODE_VALUE, MAX_CODE_VALUE)
                     .let { loginCode ->
                         loginList[userLogin] = UserLoginData(
@@ -27,6 +29,10 @@ class VerificationCodeHandlerImpl : VerificationCodeHandler {
                     }
             }
         }
+    }
+
+    override fun deleteGeneratedCode(userLogin: String) {
+        loginList.remove(userLogin)
     }
 
     override fun checkLoginCode(data: UserLoginData): Boolean {
