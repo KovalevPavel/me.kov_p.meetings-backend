@@ -37,11 +37,6 @@ fun Application.loginRouting() {
 
                 else -> {
                     generateCode(userFromDb.userName)?.let { code ->
-                        call.respond(
-                            status = HttpStatusCode.Accepted,
-                            message = LoginRespondRemote()
-                        )
-
                         when (sendCode(chatId = userFromDb.chatId, confirmationCode = code)) {
                             true -> {
                                 println("message sent")
@@ -57,8 +52,13 @@ fun Application.loginRouting() {
                                         )
                                     )
                                 )
+                                return@post
                             }
                         }
+                        call.respond(
+                            status = HttpStatusCode.Accepted,
+                            message = LoginRespondRemote()
+                        )
                     }
                         ?: kotlin.run {
                             call.respond(
