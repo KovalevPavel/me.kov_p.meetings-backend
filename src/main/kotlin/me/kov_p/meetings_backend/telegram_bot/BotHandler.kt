@@ -3,6 +3,7 @@ package me.kov_p.meetings_backend.telegram_bot
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.Message
+import com.github.kotlintelegrambot.entities.ParseMode
 import com.github.kotlintelegrambot.types.TelegramBotResult
 import com.github.kotlintelegrambot.webhook
 import me.kov_p.meetings_backend.ConfigHandler
@@ -33,7 +34,8 @@ object BotHandler {
             chatId = chatId,
             text = message,
             replyToMessageId = replyToMessage,
-            allowSendingWithoutReply = true
+            allowSendingWithoutReply = true,
+            parseMode = ParseMode.MARKDOWN_V2
         )
     }
 }
