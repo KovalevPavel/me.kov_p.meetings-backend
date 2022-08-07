@@ -20,7 +20,7 @@ class DatabaseHandler {
             username = dbUser
             password = dbPassword
             maximumPoolSize = MAX_POOL_SIZE
-            isAutoCommit = false
+            isAutoCommit = true
             transactionIsolation = TRANSACTION_ISOLATION
             maxLifetime = MAX_LIFETIME_MS
             validate()
@@ -32,6 +32,6 @@ class DatabaseHandler {
         private const val DRIVER_CLASS_NAME = "org.postgresql.Driver"
         private const val TRANSACTION_ISOLATION = "TRANSACTION_REPEATABLE_READ"
         private const val MAX_POOL_SIZE = 3
-        private const val MAX_LIFETIME_MS = 3*60*1000L // 3 минуты
+        private const val MAX_LIFETIME_MS = 3 * 60 * 1000L // 3 минуты
     }
 }

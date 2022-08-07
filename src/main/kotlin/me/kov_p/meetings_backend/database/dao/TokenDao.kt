@@ -16,9 +16,9 @@ class TokenDao {
                 Tokens.select {
                     Tokens.login.eq(userName)
                 }
+                    .firstOrNull()
+                    ?.toToken()
             }
-                .firstOrNull()
-                ?.toToken()
         }
     }
 
