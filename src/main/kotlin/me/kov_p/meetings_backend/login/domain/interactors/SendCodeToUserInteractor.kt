@@ -1,15 +1,16 @@
-package me.kov_p.meetings_backend.login
+package me.kov_p.meetings_backend.login.domain.interactors
 
-import com.github.kotlintelegrambot.entities.ChatId
-import me.kov_p.meetings_backend.telegram_bot.BotHandler
+import me.kov_p.meetings_backend.tg_bot.domain.BotHandler
 
-class SendCodeToUserInteractor {
+class SendCodeToUserInteractor(
+    private val botHandler: BotHandler,
+) {
     private val messageTemplate = System.getenv(SEND_CODE_MESSAGE_KEY)
 
     operator fun invoke(chatId: Long, confirmationCode: Int): Boolean {
         val message = messageTemplate.replace(REPLACEMENT_CHAR, confirmationCode.toString())
 
-        return BotHandler.sendMessage(chatId = ChatId.fromId(chatId), message = message).isSuccess
+        return botHandler.sendMessage(chatId = chatId, message = message).isSuccess
     }
 
     companion object {

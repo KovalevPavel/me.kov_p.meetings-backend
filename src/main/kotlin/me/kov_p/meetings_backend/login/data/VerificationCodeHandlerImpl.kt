@@ -1,12 +1,8 @@
-package me.kov_p.meetings_backend.login
+package me.kov_p.meetings_backend.login.data
 
 import kotlin.random.Random
-
-interface VerificationCodeHandler {
-    fun requestLoginCode(userLogin: String): Int?
-    fun deleteGeneratedCode(userLogin: String)
-    fun checkLoginCode(data: UserLoginData): Boolean
-}
+import me.kov_p.meetings_backend.login.domain.UserLoginData
+import me.kov_p.meetings_backend.login.domain.VerificationCodeHandler
 
 class VerificationCodeHandlerImpl : VerificationCodeHandler {
     private val loginList = mutableMapOf<String, UserLoginData>()

@@ -1,7 +1,6 @@
 package me.kov_p.meetings_backend.database.models
 
-data class TokenDto(
-    val rowId: String,
+data class Token(
     val login: String,
     val token: String
 )
